@@ -19,20 +19,25 @@
       - packages
       - utilities
 
+  - name: Update pip to latest
+    shell: 'pip install --upgrade pip'
+    become: no
+    tags: pip
+
   - name: Install Python packages
     pip: name={{ item }} state=latest
     with_items:
       - pysphere
       - boto
       - pywinrm
-        #- paramiko
+      - paramiko
       - PyYAML
       - Jinja2
       - httplib2
       - argparse
       - awscli
       - six
-    become: no
+    become: yes
     tags: ["packages", "pip"]
 
 # Git repos dir
