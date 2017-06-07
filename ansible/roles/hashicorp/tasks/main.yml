@@ -31,8 +31,8 @@
   tags: packer
 
 # Vagrant
-- name: Download Vagrant
-  dnf:
-    name: https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_{{ ansible_architecture }}.rpm
-    state: present
-  become: yes
+#- name: Download Vagrant
+#  dnf:
+#    name: https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_{{ ansible_architecture }}.rpm
+#    state: present
+#  become: yes
