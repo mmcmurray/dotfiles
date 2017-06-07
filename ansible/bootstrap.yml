@@ -10,6 +10,7 @@
 
   vars_files:
     - vars/defaults.yml
+    - vars/vault/secrets.yml
 
   pre_tasks:
     ## DEBUG
@@ -109,3 +110,21 @@
         state: present
       become: yes
       when: usr_shell == 'zsh'
+
+    - name: Ensure there is an .ssh directory
+      file:
+        path: "/home/{{ current_user }}/.ssh"
+        state: directory
+        owner: "{{ current_user }}"
+        group: "{{ current_user }}" 
+        mode: 0700
+
+    - name: Make sure our private keys are on the system
+      copy:
+        content: "{{ item.value.key_value }}"
+        dest: "/home/{{ current_user }}/.ssh/{{ item.value.key_name }}"
+        owner: "{{ current_user }}"
+        group: "{{ current_user }}"
+        mode: 0600
+      no_log: true
+      with_dict: "{{ keys }}"
