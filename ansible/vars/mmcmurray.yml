@@ -37,3 +37,4 @@ packages:
 extra_packages:
   - awscli
   - xclip
+  - gnome
