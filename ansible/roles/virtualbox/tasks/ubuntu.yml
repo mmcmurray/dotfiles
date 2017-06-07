@@ -16,7 +16,7 @@
 
 - name: Configure the VirtualBox APT repositories
   apt_repository:
-    repo: "deb http://download.virtualbox.org/virtualbox/debian trusty contrib"
+    repo: "deb http://download.virtualbox.org/virtualbox/debian {{ ansible_distribution_release }} contrib"
     state: present
   become: yes
   tags: virtualbox
