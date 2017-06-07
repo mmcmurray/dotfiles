@@ -32,7 +32,7 @@
       - argparse
       - awscli
       - six
-    become: yes
+    become: no
     tags: ["packages", "pip"]
 
 # Git repos dir
@@ -148,20 +148,20 @@
       chdir: "{{ current_user_home }}/.dotfiles"
     tags: dotfiles
 
-  - name: DFM install
-    shell: ./bin/dfm install
-    args:
-      chdir: "{{ current_user_home }}/.dotfiles"
-      executable: yes
-    tags: dotfiles
+###  - name: DFM install
+###    shell: bin/dfm install
+###    args:
+###      chdir: "{{ current_user_home }}/.dotfiles"
+###      executable: yes
+###    tags: dotfiles
 
 # Xclip
-  - name: Install Xclip
-    apt:
-      name: xclip
-      state: latest
-    become: yes
-    tags: ["xclip", "packages"]
+#  - name: Install Xclip
+#    apt:
+#      name: xclip
+#      state: latest
+#    become: yes
+#    tags: ["xclip", "packages"]
 
 # Guake
 #  - name: Add webupd8team ppa (guake)
@@ -384,26 +384,26 @@
 #  - name: Install wine
 
 # Java 7
-  - name: Install JDK 7
-    apt:
-      name: openjdk-7-jdk
-      state: latest
-    become: yes
-    tags: ["java","packages"]
+#  - name: Install JDK 7
+#    apt:
+#      name: openjdk-7-jdk
+#      state: latest
+#    become: yes
+#    tags: ["java","packages"]
 
 # Java 8
-  - name: Add openjdk-r ppa
-    shell: 'add-apt-repository -y ppa:openjdk-r/ppa'
-    become: yes
-    tags: java8
+#  - name: Add openjdk-r ppa
+#    shell: 'add-apt-repository -y ppa:openjdk-r/ppa'
+#    become: yes
+#    tags: java8
 
-  - name: Install openjdk-8-jdk
-    apt:
-      update_cache: yes
-      name: openjdk-8-jdk
-      state: latest
-    become: yes
-    tags: ["java8","packages"]
+#  - name: Install openjdk-8-jdk
+#    apt:
+#      update_cache: yes
+#      name: openjdk-8-jdk
+#      state: latest
+#    become: yes
+#    tags: ["java8","packages"]
 
 # Weechat
 #  - name: Add gpg key for Weechat repo
@@ -581,12 +581,12 @@
 #    tags: docker_machine
 
 # mdless (markdown less)
-  - name: Install mdless gem
-    gem:
-      state: latest
-      name: mdless
-    become: yes
-    tags: ["mdless","gem"]
+#  - name: Install mdless gem
+#    gem:
+#      state: latest
+#      name: mdless
+#    become: yes
+#    tags: ["mdless","gem"]
 
 # sdkman
 #  - name: Download sdkman script
