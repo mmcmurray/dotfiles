@@ -30,7 +30,7 @@
       - pysphere
       - boto
       - pywinrm
-      - paramiko
+        #- paramiko
       - PyYAML
       - Jinja2
       - httplib2
