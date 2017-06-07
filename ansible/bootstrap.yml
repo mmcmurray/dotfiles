@@ -47,7 +47,7 @@
   roles:
       #- { role: ssh, tags: [ 'ssh' ] }
     - { role: sublime, tags: [ 'sublime' ] }
-    - { role: java, tags: [ 'java' ] }
+      #- { role: java, tags: [ 'java' ] }
       #- { role: xcape, xcape_install_dir: "{{ ansible_user_dir }}/repos/git", tags: [ 'xcape' ] }
       #- { role: spideroak, tags: [ 'spideroak' ] }
     - { role: dbeaver, tags: [ 'dbeaver' ] }
@@ -100,7 +100,7 @@
     #  when: custom_vmmouse == true
 
     - name: Change .dotfiles repo from https to ssh
-      shell: "git remote set-url origin git@github.com:dailyherold/dotfiles.git"
+      shell: "git remote set-url origin git@github.com:mmcmurray/dotfiles.git"
 
     - name: Set zsh as default shell
       user:
