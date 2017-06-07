@@ -1,0 +1,13 @@
+---
+
+- name: Download dbeaver package
+  get_url:
+    url: http://dbeaver.jkiss.org/files/dbeaver-ce-latest-stable.x86_64.rpm
+    dest: "{{ current_user_home }}/Downloads"
+  register: dbeaver_download
+
+- name: Install dbeaver
+  dnf:
+    name: "{{ dbeaver_download.dest }}"
+    state: present
+  become: yes

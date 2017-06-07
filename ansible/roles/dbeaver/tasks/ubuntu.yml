@@ -1,0 +1,14 @@
+---
+
+- name: Download dbeaver package
+  get_url:
+    #url: https://spideroak.com/getbuild?platform=ubuntu&arch={{ ansible_architecture }}
+    url: http://dbeaver.jkiss.org/files/dbeaver-ce_latest_amd64.deb
+    dest: "{{ current_user_home }}/Downloads"
+  register: dbeaver_download
+
+- name: Install dbeaver
+  apt:
+    deb: "{{ dbeaver_download.dest }}"
+    state: present
+  become: yes

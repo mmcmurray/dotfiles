@@ -1,0 +1,38 @@
+---
+
+name: Mike McMurray
+nickname: mmcmurray
+company: ExamSoft
+
+usr_shell: zsh
+custom_vmmouse: false
+thinkpad_workstation: false
+
+packages:
+  - git
+  - gcc
+  - remmina
+  - python-pip
+  - keychain
+  - curl
+  - tree
+  - htop
+  - iotop
+  - iftop
+  - nmap
+  - wireshark
+  - jq
+  - vpnc
+  - tmux
+  - vim
+  - python-apt
+  - silversearcher-ag
+  - python-dev # devtools
+  - python3-dev # devtools
+  - default-jdk
+  - subversion
+  - bzip2
+
+extra_packages:
+  - awscli
+  - xclip

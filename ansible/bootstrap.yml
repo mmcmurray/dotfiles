@@ -45,11 +45,12 @@
         - svn
 
   roles:
-    - { role: ssh, tags: [ 'ssh' ] }
+      #- { role: ssh, tags: [ 'ssh' ] }
     - { role: sublime, tags: [ 'sublime' ] }
     - { role: java, tags: [ 'java' ] }
-    - { role: xcape, xcape_install_dir: "{{ ansible_user_dir }}/repos/git", tags: [ 'xcape' ] }
-    - { role: spideroak, tags: [ 'spideroak' ] }
+      #- { role: xcape, xcape_install_dir: "{{ ansible_user_dir }}/repos/git", tags: [ 'xcape' ] }
+      #- { role: spideroak, tags: [ 'spideroak' ] }
+    - { role: dbeaver, tags: [ 'dbeaver' ] }
     - { role: thinkpad, tags: [ 'thinkpad' ], when: thinkpad_workstation == true }
     - { role: hashicorp, tags: [ 'hashicorp' ] }
     - { role: virtualbox, tags: [ 'virtualbox' ] }
@@ -57,6 +58,7 @@
     - { role: maven, tags: [ 'maven' ] }
     - { role: gradle, gradle_daemon: true, tags: [ 'gradle' ] }
     - { role: node, tags: [ 'node' ] }
+    - { role: oh-my-zsh, tags: [ 'oh-my-zsh' ] }
 
   post_tasks:
     - name: Setup git config
@@ -89,20 +91,20 @@
     #- name: Install vim plugins
     #  command: /usr/bin/vim +PluginInstall +qall
 
-    - name: Set custom vmmouse input device tweaks
-      copy:
-        dest: /etc/X11/xorg.conf.d/50-vmmouse.conf
-        src: files/50-vmmouse.conf
-        backup: yes
-      become: yes
-      when: custom_vmmouse == true
+    #- name: Set custom vmmouse input device tweaks
+    #  copy:
+    #    dest: /etc/X11/xorg.conf.d/50-vmmouse.conf
+    #    src: files/50-vmmouse.conf
+    #    backup: yes
+    #  become: yes
+    #  when: custom_vmmouse == true
 
     - name: Change .dotfiles repo from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/dotfiles.git"
 
     - name: Set zsh as default shell
       user:
-        name: jpherold
+        name: "{{ current_user }}"
         shell: /bin/zsh
         state: present
       become: yes
