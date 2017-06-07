@@ -58,9 +58,9 @@ set ts=4
 set sw=4
 set et
 
-set bg=dark
+set bg=light
 "colorscheme solarized
-colorscheme molokai
+"colorscheme molokai
 "set t_Co=256                        " force vim to use 256 colors
 "let g:solarized_termcolors=256      " use solarized 256 fallback
 set tabstop=4
