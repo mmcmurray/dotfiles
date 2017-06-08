@@ -39,3 +39,4 @@ extra_packages:
   - xclip
   - gnome
   - chrome-gnome-shell
+  - network-manager-vpnc
