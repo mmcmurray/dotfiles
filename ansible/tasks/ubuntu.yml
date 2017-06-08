@@ -33,11 +33,11 @@
         #- paramiko
       - PyYAML
       - Jinja2
-      - httplib2
-      - argparse
+        #- httplib2
+        #- argparse
       - awscli
-      - six
-    become: yes
+        #- six
+    become: no
     tags: ["packages", "pip"]
 
 # Git repos dir

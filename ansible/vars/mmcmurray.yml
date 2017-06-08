@@ -38,3 +38,4 @@ extra_packages:
   - awscli
   - xclip
   - gnome
+  - chrome-gnome-shell
