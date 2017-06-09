@@ -4,6 +4,8 @@ name: Mike McMurray
 nickname: mmcmurray
 company: ExamSoft
 email: mmcmurray@examsoft.com
+dl_git_repos: true
+dl_svn_repos: true
 
 usr_shell: zsh
 custom_vmmouse: false
@@ -42,3 +44,90 @@ extra_packages:
   - chrome-gnome-shell
   - network-manager-vpnc
   - gnome-extra-icons
+  - python-boto
+  - python-winrm
+  - python-paramiko
+  - python-jinja2
+  - python-httplib2
+  - python-six
+
+git_repos:
+  ansible:
+    url: ssh://git@examsoft.git.beanstalkapp.com/examsoft/ansible.git
+
+  bullwinkle-devops:
+    url: git@github.com:examsoft/bullwinkle-devops.git
+
+  devops-auth:
+    url: git@github.com:examsoft/devops-auth.git
+
+  devops-tools:
+    url: git@github.com:examsoft/devops-tools.git
+
+  examplify-tools:
+    url: git@github.com:examsoft/examplify-tools.git
+
+  examsoft-capi:
+    url: git@github.com:examsoft/examsoft-capi.git
+
+  examsoft-softestv12:
+    url: git@github.com:examsoft/examsoft-softestv12.git
+
+  fubar-devops:
+    url: git@github.com:examsoft/fubar-devops.git
+
+  legacy-devops:
+    url: git@github.com:examsoft/legacy-devops.git
+
+  phoenix-devops:
+    url: git@github.com:examsoft/phoenix-devops.git
+
+  phoenix-lms:
+    url: git@github.com:examsoft/phoenix-lms.git
+
+  phoenix-services:
+    url: git@github.com:examsoft/phoenix-services.git
+    
+  phoenix-ui:
+    url: git@github.com:examsoft/phoenix-ui.git
+    
+  phoenix-lms:
+    url: git@github.com:examsoft/phoenix-lms.git      
+
+  releases.examsoft.com:
+    url: git@github.com:examsoft/releases.examsoft.com.git
+
+  tuna-devops:
+    url: git@github.com:examsoft/tuna-devops.git
+
+  workfiles:
+    url: git@github.com:mmcmurray/workfiles.git
+
+  zanzibar-web-api:
+    url:  git@examsoft.git.beanstalkapp.com:/examsoft/zanzibar-web-api.git
+
+svn_repos:
+  legacy-release-001:
+    url: https://examsoft.svn.beanstalkapp.com/es_stw/branches/legacy-release-001
+    user: "{{ beanstalk_svn_user }}"
+    pass: "{{ beanstalk_svn_pass }}"
+
+  legacy-release-002:
+    url: https://examsoft.svn.beanstalkapp.com/es_stw/branches/legacy-release-002
+    user: "{{ beanstalk_svn_user }}"
+    pass: "{{ beanstalk_svn_pass }}"
+
+  es_client:
+    url: https://examsoft.svn.beanstalkapp.com/es_client/branches/esclient_2014.12.12
+    user: "{{ beanstalk_svn_user }}"
+    pass: "{{ beanstalk_svn_pass }}"
+
+  esautoimport:
+    url: https://examsoft.svn.beanstalkapp.com/es_core/trunk/other/serverprocs/esautoimport
+    user: "{{ beanstalk_svn_user }}"
+    pass: "{{ beanstalk_svn_pass }}"
+
+  esreminder:
+    url: https://examsoft.svn.beanstalkapp.com/es_core/trunk/other/serverprocs/esreminder
+    user: "{{ beanstalk_svn_user }}"
+    pass: "{{ beanstalk_svn_pass }}"
