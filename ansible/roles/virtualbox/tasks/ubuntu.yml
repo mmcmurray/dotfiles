@@ -30,3 +30,11 @@
   tags: ["virtualbox","packages"]
 
 # Install extension pack as well
+
+#- name: Install VBox Guest Additions ISO
+#  apt:
+#    update_cache: yes
+#    name: virtualbox-guest-additions-iso
+#    state: latest
+#  become: yes
+#  tags: ["virtualbox","packages"]
