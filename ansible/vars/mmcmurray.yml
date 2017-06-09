@@ -40,3 +40,4 @@ extra_packages:
   - gnome
   - chrome-gnome-shell
   - network-manager-vpnc
+  - gnome-extra-icons
