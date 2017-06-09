@@ -22,4 +22,17 @@
   become: yes
   tags: ["gnome-themes","packages"]
 
+- name: Configure Numix PPA repo
+  apt_repository:
+    repo: ppa:numix/ppa
+    state: present
+  become: yes
+  tags: gnome-themes
 
+- name: Install Numix Theme and Icon Sets
+  apt:
+    update_cache: yes
+    name: numix-icon-theme-circle
+    state: latest
+  become: yes
+  tags: ["gnome-themes","packages"]
