@@ -17,6 +17,7 @@ packages:
   - keychain
   - curl
   - tree
+  - atop
   - htop
   - iotop
   - iftop

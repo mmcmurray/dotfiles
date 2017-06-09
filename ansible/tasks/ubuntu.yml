@@ -29,13 +29,13 @@
     with_items:
       - pysphere
       - boto
-      - pywinrm
+      #- pywinrm  # Needed for controlling windows servers
         #- paramiko
       - PyYAML
       - Jinja2
         #- httplib2
         #- argparse
-      - awscli
+      #- awscli  # Needed for AWS CLI controls
         #- six
     become: no
     tags: ["packages", "pip"]
