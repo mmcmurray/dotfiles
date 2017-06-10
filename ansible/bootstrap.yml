@@ -54,7 +54,7 @@
     - { role: dbeaver, tags: [ 'dbeaver' ] }
     - { role: thinkpad, tags: [ 'thinkpad' ], when: thinkpad_workstation == true }
     - { role: hashicorp, tags: [ 'hashicorp' ] }
-    - { role: virtualbox, tags: [ 'virtualbox' ], when: ansible_virtualization_role = "host" }
+    - { role: virtualbox, tags: [ 'virtualbox' ], when: ansible_virtualization_role == "host" }
     - { role: docker, install_docker_compose: true, tags: [ 'docker' ] }
     - { role: maven, tags: [ 'maven' ] }
     - { role: gradle, gradle_daemon: true, tags: [ 'gradle' ] }
