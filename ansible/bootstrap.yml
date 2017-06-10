@@ -54,7 +54,7 @@
     - { role: dbeaver, tags: [ 'dbeaver' ] }
     - { role: thinkpad, tags: [ 'thinkpad' ], when: thinkpad_workstation == true }
     - { role: hashicorp, tags: [ 'hashicorp' ] }
-    - { role: virtualbox, tags: [ 'virtualbox' ] }
+    - { role: virtualbox, tags: [ 'virtualbox' ], when: ansible_virtualization_role = "host" }
     - { role: docker, install_docker_compose: true, tags: [ 'docker' ] }
     - { role: maven, tags: [ 'maven' ] }
     - { role: gradle, gradle_daemon: true, tags: [ 'gradle' ] }
@@ -140,18 +140,20 @@
 
     - name: Copy AWS Config and Credential Files
       copy:
-        dest="{{ item.key }}"
-        content="{{ item.value.content }}"
-        owner="{{ item.value.owner }}"
-        group="{{ item.value.group }}"
-        mode="{{ item.value.mode }}"
+        dest: "{{ item.key }}"
+        content: "{{ item.value.content }}"
+        owner: "{{ item.value.owner }}"
+        group: "{{ item.value.group }}"
+        mode: "{{ item.value.mode }}"
       with_dict: aws_config_files
       no_log: true
 
     - name: Download git Repos
       git:
+        accept_hostkey: yes
         repo: "{{ item.value.url }}"
         dest: "/home/{{ current_user }}/repos/git/{{ item.key }}"
+        accept_hostkey: yes
       with_dict: git_repos
       when: dl_git_repos == true
 
