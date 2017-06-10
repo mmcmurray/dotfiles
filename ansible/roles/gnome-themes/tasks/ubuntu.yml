@@ -6,6 +6,7 @@
     state: present
   become: yes
   tags: gnome-themes
+  when: ansible_distribution_version == "16.04"
 
 - name: Configure the Arc APT repositories
   apt_repository:
@@ -13,6 +14,7 @@
     state: present
   become: yes
   tags: gnome-themes
+  when: ansible_distribution_version == "16.04"
 
 - name: Install Arc Theme
   apt:
