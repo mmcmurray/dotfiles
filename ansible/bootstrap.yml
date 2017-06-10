@@ -145,7 +145,7 @@
         owner: "{{ item.value.owner }}"
         group: "{{ item.value.group }}"
         mode: "{{ item.value.mode }}"
-      with_dict: aws_config_files
+      with_dict: "{{ aws_config_files }}"
       no_log: true
 
     - name: Download git Repos
@@ -154,7 +154,7 @@
         repo: "{{ item.value.url }}"
         dest: "/home/{{ current_user }}/repos/git/{{ item.key }}"
         accept_hostkey: yes
-      with_dict: git_repos
+      with_dict: "{{ git_repos }}" 
       when: dl_git_repos == true
 
     - name: Download svn Repos
@@ -163,5 +163,5 @@
         dest: "/home/{{ current_user }}/repos/svn/{{ item.key }}"
         username: "{{ item.value.user }}"
         password: "{{ item.value.pass }}"
-      with_dict: svn_repos
+      with_dict: "{{ svn_repos }}"
       when: dl_svn_repos
