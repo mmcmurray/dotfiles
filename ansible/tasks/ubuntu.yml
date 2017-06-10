@@ -30,7 +30,7 @@
       - pysphere
       - PyYAML
       - awscli  # Needed for AWS CLI controls
-    become: no
+    become: yes
     tags: ["packages", "pip"]
 
 # Git repos dir
