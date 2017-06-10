@@ -228,16 +228,19 @@
       state: latest
     become: yes
     tags: ["sensors","packages"]
+    when: ansible_virtualization_role == "host"
 
   - name: Detect sensors
     shell: sensors-detect
     become: yes
     tags: sensors
+    when: ansible_virtualization_role == "host"
 
   - name: View sensors
     shell: sensors
     register: sensors_output
     tags: sensors
+    when: ansible_virtualization_role == "host"
 
   - name: Show sensors data
     debug: var=sensors_output
@@ -247,6 +250,7 @@
     shell: 'apt-add-repository -y ppa:jfi/ppa'
     become: yes
     tags: sensors
+    when: ansible_virtualization_role == "host"
 
   - name: Install Psensor
     apt:
@@ -255,6 +259,7 @@
       state: latest
     become: yes
     tags: ["sensors", "packages"]
+    when: ansible_virtualization_role == "host"
 
 # Diodon
 #  - name: Add Diodon ppa
