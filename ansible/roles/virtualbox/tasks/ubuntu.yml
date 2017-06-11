@@ -14,6 +14,10 @@
   become: yes
   tags: virtualbox
 
+- name: Ensure keys validate (hack)
+  apt_key: id=A2F683C52980AECF keyserver="hkp://keyserver.ubuntu.com:80" state=present
+  become: yes
+
 - name: Configure the VirtualBox APT repositories
   apt_repository:
     repo: "deb http://download.virtualbox.org/virtualbox/debian {{ ansible_distribution_release }} contrib"
@@ -25,7 +29,7 @@
   apt:
     update_cache: yes
     name: virtualbox-{{ virtualbox_version }}
-    state: latest
+    state: present
   become: yes
   tags: ["virtualbox","packages"]
 
