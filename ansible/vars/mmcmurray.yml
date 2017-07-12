@@ -27,6 +27,7 @@ packages:
   - wireshark
   - jq
   - vpnc
+  - vpnc-scripts
   - tmux
   - vim
   - python-apt

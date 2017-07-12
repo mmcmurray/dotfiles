@@ -1,8 +1,8 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/mmcmurray/.oh-my-zsh
+export ZSH=/home/mmcmurray/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -102,6 +102,7 @@ export EDITOR=vim
 
 # Setup SSH keychain
 eval $(keychain --eval --agents ssh id_rsa)
+#eval $(ssh-agent -s)
 
 # Turns off ansible cows!
 export ANSIBLE_NOCOWS=1
