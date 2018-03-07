@@ -6,3 +6,7 @@ alias pssh='ssh -C -o PreferredAuthentications=password -o PubkeyAuthentication=
 alias htunnel='ssh -L 5900:localhost:5900 alien@home.alienated.org'
 alias ag='ag --pager="less -XFRS"'
 alias docker='sudo docker'
+alias slack-term-examsoft='slack-term -config ~/.slackterm/examsoft.config'
+alias slack-term-panoptio='slack-term -config ~/.slackterm/panoptio.config'
+alias paws='aws --profile=panoptio'
+alias python='/usr/bin/python3'
