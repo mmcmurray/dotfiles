@@ -61,7 +61,7 @@
     - { role: node, tags: [ 'node' ] }
     - { role: oh-my-zsh, tags: [ 'oh-my-zsh' ] }
     - { role: gnome-themes, tags: [ 'gnome-themes' ] }
-    - { role: spotify, tags: [ 'spotify' ] }
+    #- { role: spotify, tags: [ 'spotify' ] }
 
   post_tasks:
     - name: Setup git config
