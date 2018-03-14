@@ -56,6 +56,9 @@ git_repos:
   ansible:
     url: ssh://git@examsoft.git.beanstalkapp.com/examsoft/ansible.git
 
+  examsoft-infra:
+    url: git@github.com/examsoft/examsoft-infra.git
+
   bullwinkle-devops:
     url: git@github.com:examsoft/bullwinkle-devops.git
 
