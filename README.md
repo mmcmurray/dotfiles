@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repo is my attempt at backing up my terminal life. It contains a utility ([dfm](https://github.com/justone/dfm)) to help with managing and updating my  dotfiles.
+This repo is my attempt at backing up my terminal life. It contains a utility ([dfm](https://github.com/justone/dfm)) to help with managing and updating my dotfiles.
 
 It also contains a massive Ansible bootstrap playbook (pending further role organization and flavor-agnostic optimiztion) for getting a fresh install of a 14.04 based distro setup just how I like it.
 
@@ -24,3 +24,12 @@ Check out `dfm` though if you are curious about it's role, as I think it is a sw
 - Speaking of scripts, add a true bootstrap script that installs Ansible, sets dotfiles, and kicks off a playbook.
 - Consider dfm's role and if I would just want to use Ansible for similar tasks.
 
+## Installation / Setup
+
+* Install the following pre-requisite packages
+	* `aptitude`
+	* `git`
+* Clone this repo to a `.dotfiles` subdirectory of $HOME
+	* `git clone https://github.com/mmcmurray/dotfiles.git ~/.dotfiles`
+* Navigate to the ansible subdirectory and kick off the playbook with the following:
+	* `ansible-playbook bootstrap.yml --ask-vault-pass`
