@@ -1,0 +1,17 @@
+---
+## tasks file for sublime
+##
+
+- name: Add repo signing key for sublime text repo
+  apt_key:
+    url: https://download.sublimetext.com/sublimehq-pub.gpg
+    state: present
+  become: yes
+
+- name: Add sublime repository
+  apt_repository: repo="deb https://download.sublimetext.com/ apt/stable/"
+  become: yes
+
+- name: Ensure sublime is installed
+  apt: name=sublime-text  state=latest
+  become: yes
