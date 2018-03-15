@@ -32,4 +32,4 @@ Check out `dfm` though if you are curious about it's role, as I think it is a sw
 * Clone this repo to a `.dotfiles` subdirectory of $HOME
 	* `git clone https://github.com/mmcmurray/dotfiles.git ~/.dotfiles`
 * Navigate to the ansible subdirectory and kick off the playbook with the following:
-	* `ansible-playbook bootstrap.yml --ask-vault-pass`
+	* `ansible-playbook bootstrap.yml --ask-vault-pass --ask-sudo-pass`
