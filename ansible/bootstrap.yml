@@ -33,10 +33,6 @@
       include: tasks/ubuntu.yml
       when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' )
 
-    # TODO: finish out the rest of this archive download and install
-    #- name: Install Postman
-    #  get_url: https://app.getpostman.com/app/download/linux64
-
     - name: Ensure home repos folder
       file:
         state: directory
@@ -61,7 +57,7 @@
     - { role: node, tags: [ 'node' ] }
     - { role: oh-my-zsh, tags: [ 'oh-my-zsh' ] }
     - { role: gnome-themes, tags: [ 'gnome-themes' ] }
-    #- { role: spotify, tags: [ 'spotify' ] }
+    - { role: spotify, tags: [ 'spotify' ] }
 
   post_tasks:
     - name: Setup git config
@@ -86,21 +82,6 @@
       with_items:
         - "{{ ansible_user_dir }}/.vim/backup"
         - "{{ ansible_user_dir }}/.vim/swp"
-
-    # TODO: this won't work because on start up vim complains about certain functions not
-    # being available and asking to press enter to continue. The plugin install command
-    # fixes that, but need to see if there is a way to silence any start up warning/errors
-    #
-    #- name: Install vim plugins
-    #  command: /usr/bin/vim +PluginInstall +qall
-
-    #- name: Set custom vmmouse input device tweaks
-    #  copy:
-    #    dest: /etc/X11/xorg.conf.d/50-vmmouse.conf
-    #    src: files/50-vmmouse.conf
-    #    backup: yes
-    #  become: yes
-    #  when: custom_vmmouse == true
 
     - name: Change .dotfiles repo from https to ssh
       shell: "git remote set-url origin git@github.com:mmcmurray/dotfiles.git"
@@ -149,20 +130,20 @@
       with_dict: "{{ aws_config_files }}"
       no_log: true
 
-    - name: Download git Repos
+    - name: Download private git Repos
       git:
         accept_hostkey: yes
         repo: "{{ item.value.url }}"
         dest: "/home/{{ current_user }}/repos/git/{{ item.key }}"
         accept_hostkey: yes
-      with_dict: "{{ git_repos }}" 
-      when: dl_git_repos == true
+      with_dict: "{{ priv_git_repos }}" 
+      when: dl_priv_git_repos == true
 
-    - name: Download svn Repos
+    - name: Download private svn Repos
       subversion:
         repo: "{{ item.value.url }}"
         dest: "/home/{{ current_user }}/repos/svn/{{ item.key }}"
         username: "{{ item.value.user }}"
         password: "{{ item.value.pass }}"
-      with_dict: "{{ svn_repos }}"
-      when: dl_svn_repos
+      with_dict: "{{ priv_svn_repos }}"
+      when: dl_priv_svn_repos == true
