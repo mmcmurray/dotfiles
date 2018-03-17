@@ -58,6 +58,7 @@
     - { role: oh-my-zsh, tags: [ 'oh-my-zsh' ] }
     - { role: gnome-themes, tags: [ 'gnome-themes' ] }
     - { role: spotify, tags: [ 'spotify' ] }
+    - { role: repos-git, tags: [ 'repos-git' ] }
 
   post_tasks:
     - name: Setup git config
@@ -130,14 +131,7 @@
       with_dict: "{{ aws_config_files }}"
       no_log: true
 
-    - name: Download private git Repos
-      git:
-        accept_hostkey: yes
-        repo: "{{ item.value.url }}"
-        dest: "/home/{{ current_user }}/repos/git/{{ item.key }}"
-        accept_hostkey: yes
-      with_dict: "{{ priv_git_repos }}" 
-      when: dl_priv_git_repos == true
+
 
     - name: Download private svn Repos
       subversion:
