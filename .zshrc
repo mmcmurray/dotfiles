@@ -101,8 +101,12 @@ export SVN_EDITOR=vim
 export EDITOR=vim
 
 # Setup SSH keychain
-eval $(keychain --eval --agents ssh id_rsa)
-#eval $(ssh-agent -s)
+
+if [[ "$OSTYPE" =~ '^linux' ]]; then
+	eval $(keychain --eval --agents ssh id_rsa)
+elif [[ "$OSTYPE" =~ '^darwin' ]]; then
+	eval $(ssh-agent -s)
+fi
 
 # Turns off ansible cows!
 export ANSIBLE_NOCOWS=1
@@ -116,9 +120,13 @@ export ANSIBLE_NOCOWS=1
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-[ -f ~/.alias ] && source ~/.alias
+if [[ "$OSTYPE" =~ '^linux' ]]; then
+	[ -f ~/.alias.linux ] && source ~/.alias.linux
+elif [[ "$OSTYPE" =~ '^darwin' ]]; then
+	[ -f ~/.alias.darwin ] && source ~/.alias.darwin
+fi
 
 # Setup NVM
-export NVM_DIR="/home/mmcmurray/.nvm"
+export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
