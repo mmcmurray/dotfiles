@@ -48,16 +48,16 @@
       #- { role: xcape, xcape_install_dir: "{{ ansible_user_dir }}/repos/git", tags: [ 'xcape' ] }
       #- { role: spideroak, tags: [ 'spideroak' ] }
     - { role: dbeaver, tags: [ 'dbeaver' ] }
-    - { role: thinkpad, tags: [ 'thinkpad' ], when: thinkpad_workstation == true }
     - { role: hashicorp, tags: [ 'hashicorp' ] }
     - { role: virtualbox, tags: [ 'virtualbox' ], when: ansible_virtualization_role == "host" }
     - { role: docker, install_docker_compose: true, tags: [ 'docker' ] }
-    - { role: maven, tags: [ 'maven' ] }
-    - { role: gradle, gradle_daemon: true, tags: [ 'gradle' ] }
-    - { role: node, tags: [ 'node' ] }
+    - { role: maven, tags: [ 'maven' ], when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' ) }
+    - { role: gradle, gradle_daemon: true, tags: [ 'gradle' ], when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' ) }
+    - { role: node, tags: [ 'node' ], when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' ) }
+    - { role: ansible-role-homebrew, tags: [ 'homebrew' ], when: ansible_distribution == 'MacOSX' }
     - { role: oh-my-zsh, tags: [ 'oh-my-zsh' ] }
-    - { role: gnome-themes, tags: [ 'gnome-themes' ] }
-    - { role: spotify, tags: [ 'spotify' ] }
+    - { role: gnome-themes, tags: [ 'gnome-themes' ], when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' ) }
+    - { role: spotify, tags: [ 'spotify' ], when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' ) }
     - { role: repos-git, tags: [ 'repos-git' ] }
     - { role: aws, tags: [ 'aws' ] }
 
