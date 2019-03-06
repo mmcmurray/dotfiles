@@ -6,6 +6,7 @@
 
   vars:
     current_user: "{{ lookup('env','USER') }}"
+    current_group: "{{ lookup('env', 'GROUP') }}"
     current_user_home: "{{ lookup('env','HOME') }}"
 
   vars_files:
@@ -51,13 +52,13 @@
     - { role: hashicorp, tags: [ 'hashicorp' ] }
     - { role: virtualbox, tags: [ 'virtualbox' ], when: ansible_virtualization_role == "host" }
     - { role: docker, install_docker_compose: true, tags: [ 'docker' ] }
-    - { role: maven, tags: [ 'maven' ], when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' ) }
-    - { role: gradle, gradle_daemon: true, tags: [ 'gradle' ], when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' ) }
-    - { role: node, tags: [ 'node' ], when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' ) }
+    - { role: maven, tags: [ 'maven' ], when: ansible_distribution != 'MacOSX' }
+    - { role: gradle, gradle_daemon: true, tags: [ 'gradle' ], when: ansible_distribution != 'MacOSX' }
+    - { role: node, tags: [ 'node' ], when: ansible_distribution != 'MacOSX' }
     - { role: ansible-role-homebrew, tags: [ 'homebrew' ], when: ansible_distribution == 'MacOSX' }
     - { role: oh-my-zsh, tags: [ 'oh-my-zsh' ] }
-    - { role: gnome-themes, tags: [ 'gnome-themes' ], when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' ) }
-    - { role: spotify, tags: [ 'spotify' ], when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' ) }
+    - { role: gnome-themes, tags: [ 'gnome-themes' ], when: ansible_distribution != 'MacOSX' }
+    - { role: spotify, tags: [ 'spotify' ], when: ansible_distribution != 'MacOSX' }
     - { role: repos-git, tags: [ 'repos-git' ] }
     - { role: aws, tags: [ 'aws' ] }
 
@@ -73,6 +74,7 @@
     # Refresh fonts after .fonts was symlinked from dotfiles repo
     - name: Refresh font cache
       command: /usr/bin/fc-cache -vf {{ ansible_user_dir }}/.fonts
+      when: ansible_distribution != 'MacOSX'
 
     - name: Ensure vim swp and backup directories
       file: state=directory path={{ item }}
@@ -83,19 +85,27 @@
     - name: Change .dotfiles repo from https to ssh
       shell: "git remote set-url origin git@github.com:mmcmurray/dotfiles.git"
 
-    - name: Set zsh as default shell
+    - name: (Linux) Set zsh as default shell
       user:
         name: "{{ current_user }}"
         shell: /bin/zsh
         state: present
       become: yes
-      when: usr_shell == 'zsh'
+      when: ( usr_shell == 'zsh' ) and ( ansible_distribution != 'MacOSX' )
 
-    - name: Download private svn Repos
-      subversion:
-        repo: "{{ item.value.url }}"
-        dest: "/home/{{ current_user }}/repos/svn/{{ item.key }}"
-        username: "{{ item.value.user }}"
-        password: "{{ item.value.pass }}"
-      with_dict: "{{ priv_svn_repos }}"
-      when: dl_priv_svn_repos == true
+    - name: (MacOSX) Set zsh as default shell
+      user:
+        name: "{{ current_user }}"
+        shell: /usr/local/bin/zsh
+        state: present
+      become: yes
+      when: ( usr_shell == 'zsh' ) and ( ansible_distribution == 'MacOSX' )
+
+    #- name: Download private svn Repos
+    #  subversion:
+    #    repo: "{{ item.value.url }}"
+    #    dest: "/home/{{ current_user }}/repos/svn/{{ item.key }}"
+    #    username: "{{ item.value.user }}"
+    #    password: "{{ item.value.pass }}"
+    #  with_dict: "{{ priv_svn_repos }}"
+    #  when: dl_priv_svn_repos == true

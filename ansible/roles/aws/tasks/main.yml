@@ -3,18 +3,18 @@
 
 - name: Ensure there is a .aws directory
   file:
-    path: "/home/{{ current_user }}/.aws"
+    path: "{{ current_user_home }}/.aws"
     state: directory
     owner: "{{ current_user }}"
-    group: "{{ current_user }}" 
+    #group: "{{ current_group }}" 
     mode: 0700
 
 - name: Copy AWS Config and Credential Files
   copy:
-    dest: "{{ item.key }}"
+    dest: "{{ current_user_home }}/{{ item.key }}"
     content: "{{ item.value.content }}"
     owner: "{{ item.value.owner }}"
-    group: "{{ item.value.group }}"
+    #group: "{{ item.value.group }}"
     mode: "{{ item.value.mode }}"
   with_dict: "{{ aws_config_files }}"
   no_log: true
