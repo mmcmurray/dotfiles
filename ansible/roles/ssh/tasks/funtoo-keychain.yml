@@ -7,6 +7,7 @@
     src: /etc/xdg/autostart/gnome-keyring-ssh.desktop
     dest: "{{ current_user_home }}/.config/autostart/"
   tags: gnome-keyring
+  when: ansible_distribution != 'MacOSX'
 
 - name: Prevent gnome-keyring from starting
   lineinfile:
@@ -14,6 +15,7 @@
     line: Hidden=true
     state: present
   tags: gnome-keyring
+  when: ansible_distribution != 'MacOSX'
 
 ## Long live Funtoo keychain
 #- name: Download keychain
