@@ -21,8 +21,8 @@
 - name: Download private git Repos
   git:
     accept_hostkey: yes
-    repo: "{{ item.value.url }}"
-    dest: "/home/{{ current_user }}/repos/git/{{ item.value.prefix }}/{{ item.key }}"
+    repo: "git@github.com:{{ item.value.url }}"
+    dest: "{{ current_user_home }}/repos/git/{{ item.value.prefix }}/{{ item.key }}"
     version: "{{ item.value.version }}"
     accept_hostkey: yes
   with_dict: "{{ priv_git_repos }}" 
