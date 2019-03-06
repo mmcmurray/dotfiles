@@ -105,7 +105,7 @@ export EDITOR=vim
 if [[ "$OSTYPE" =~ '^linux' ]]; then
 	eval $(keychain --eval --agents ssh id_rsa)
 elif [[ "$OSTYPE" =~ '^darwin' ]]; then
-	eval $(ssh-agent -s)
+	ssh-add -K
 fi
 
 # Turns off ansible cows!
