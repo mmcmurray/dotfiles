@@ -7,9 +7,16 @@ alias pssh='ssh -C -o PreferredAuthentications=password -o PubkeyAuthentication=
 alias htunnel='ssh -L 5900:localhost:5900 alien@home.alienated.org'
 alias ag='ag --pager="less -XFRS"'
 alias docker='sudo docker'
+<<<<<<< HEAD:.alias
 alias slack-term-panoptio='slack-term --config ~/snap/slack-term/current/slack-term.json'
 alias paws='aws --profile=personal'
 #alias python='/usr/bin/python3'
 alias gitlog='git log --graph --oneline --all --decorate --topo-order'
 alias reactivate='deactivate && source venv/bin/activate'
 alias gotop='/snap/bin/gotop-cjbassi'
+=======
+alias slack-term-examsoft='slack-term -config ~/.slackterm/examsoft.config'
+alias slack-term-panoptio='slack-term -config ~/.slackterm/panoptio.config'
+alias paws='aws --profile=panoptio'
+#alias python='/usr/bin/python3'
+>>>>>>> 31538c0003b2740d8408f9b15ece1684772c570c:.alias.linux

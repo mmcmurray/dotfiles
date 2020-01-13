@@ -1,0 +1,29 @@
+---
+## tasks file for repos-git
+##
+
+# Ensure we have a root level directory structure created.
+- name: Ensure home repos folder
+  file:
+    state: directory
+    path: "{{ ansible_user_dir }}/repos/{{ item }}"
+  with_items:
+    - git
+
+# Loop through the list of "private" repots to ensure we have the proper "prefix" directories created.
+- name: Create prefix directories for git repos
+  file:
+    state: directory
+    path: "{{ ansible_user_dir }}/repos/git/{{ item.value.prefix }}"
+  with_dict: "{{ priv_git_repos }}"
+
+# Loop through the list of "private" git repos (typically defined in a dict in a secrets vault file.)
+- name: Download private git Repos
+  git:
+    accept_hostkey: yes
+    repo: "git@github.com:{{ item.value.url }}"
+    dest: "{{ current_user_home }}/repos/git/{{ item.value.prefix }}/{{ item.key }}"
+    version: "{{ item.value.version }}"
+    accept_hostkey: yes
+  with_dict: "{{ priv_git_repos }}" 
+  when: dl_priv_git_repos == true

@@ -5,6 +5,7 @@
 .vim/bundle/**
 .vim/swp/*
 .vim/backup/*
+.vim/.netrwhist
 
 # ANSIBLE #
 ###########

@@ -6,6 +6,7 @@
 
   vars:
     current_user: "{{ lookup('env','USER') }}"
+    current_group: "{{ lookup('env', 'GROUP') }}"
     current_user_home: "{{ lookup('env','HOME') }}"
 
   vars_files:
@@ -48,16 +49,18 @@
       #- { role: xcape, xcape_install_dir: "{{ ansible_user_dir }}/repos/git", tags: [ 'xcape' ] }
       #- { role: spideroak, tags: [ 'spideroak' ] }
     - { role: dbeaver, tags: [ 'dbeaver' ] }
-    - { role: thinkpad, tags: [ 'thinkpad' ], when: thinkpad_workstation == true }
     - { role: hashicorp, tags: [ 'hashicorp' ] }
     - { role: virtualbox, tags: [ 'virtualbox' ], when: ansible_virtualization_role == "host" }
     - { role: docker, install_docker_compose: true, tags: [ 'docker' ] }
-    - { role: maven, tags: [ 'maven' ] }
-    - { role: gradle, gradle_daemon: true, tags: [ 'gradle' ] }
-    - { role: node, tags: [ 'node' ] }
+    - { role: maven, tags: [ 'maven' ], when: ansible_distribution != 'MacOSX' }
+    - { role: gradle, gradle_daemon: true, tags: [ 'gradle' ], when: ansible_distribution != 'MacOSX' }
+    - { role: node, tags: [ 'node' ], when: ansible_distribution != 'MacOSX' }
+    - { role: ansible-role-homebrew, tags: [ 'homebrew' ], when: ansible_distribution == 'MacOSX' }
     - { role: oh-my-zsh, tags: [ 'oh-my-zsh' ] }
-    - { role: gnome-themes, tags: [ 'gnome-themes' ] }
-    - { role: spotify, tags: [ 'spotify' ] }
+    - { role: gnome-themes, tags: [ 'gnome-themes' ], when: ansible_distribution != 'MacOSX' }
+    - { role: spotify, tags: [ 'spotify' ], when: ansible_distribution != 'MacOSX' }
+    - { role: repos-git, tags: [ 'repos-git' ] }
+    - { role: aws, tags: [ 'aws' ] }
 
   post_tasks:
     - name: Setup git config
@@ -65,17 +68,13 @@
         dest: "{{ ansible_user_dir }}/.gitconfig"
         src: ../templates/.gitconfig.j2
 
-    - name: Ensure dev directory
-      file:
-        state: directory
-        path: "{{ dev_home }}"
-
     - name: Symlink dotfiles
       command: bin/dfm install chdir={{ ansible_user_dir }}/.dotfiles
 
     # Refresh fonts after .fonts was symlinked from dotfiles repo
     - name: Refresh font cache
       command: /usr/bin/fc-cache -vf {{ ansible_user_dir }}/.fonts
+      when: ansible_distribution != 'MacOSX'
 
     - name: Ensure vim swp and backup directories
       file: state=directory path={{ item }}
@@ -86,64 +85,27 @@
     - name: Change .dotfiles repo from https to ssh
       shell: "git remote set-url origin git@github.com:mmcmurray/dotfiles.git"
 
-    - name: Set zsh as default shell
+    - name: (Linux) Set zsh as default shell
       user:
         name: "{{ current_user }}"
         shell: /bin/zsh
         state: present
       become: yes
-      when: usr_shell == 'zsh'
+      when: ( usr_shell == 'zsh' ) and ( ansible_distribution != 'MacOSX' )
 
-    - name: Ensure there is an .ssh directory
-      file:
-        path: "/home/{{ current_user }}/.ssh"
-        state: directory
-        owner: "{{ current_user }}"
-        group: "{{ current_user }}" 
-        mode: 0700
+    - name: (MacOSX) Set zsh as default shell
+      user:
+        name: "{{ current_user }}"
+        shell: /usr/local/bin/zsh
+        state: present
+      become: yes
+      when: ( usr_shell == 'zsh' ) and ( ansible_distribution == 'MacOSX' )
 
-    - name: Make sure our private keys are on the system
-      copy:
-        content: "{{ item.value.key_value }}"
-        dest: "/home/{{ current_user }}/.ssh/{{ item.value.key_name }}"
-        owner: "{{ current_user }}"
-        group: "{{ current_user }}"
-        mode: 0600
-      no_log: true
-      with_dict: "{{ keys }}"
-
-    - name: Ensure there is a .aws directory
-      file:
-        path: "/home/{{ current_user }}/.aws"
-        state: directory
-        owner: "{{ current_user }}"
-        group: "{{ current_user }}" 
-        mode: 0700
-
-    - name: Copy AWS Config and Credential Files
-      copy:
-        dest: "{{ item.key }}"
-        content: "{{ item.value.content }}"
-        owner: "{{ item.value.owner }}"
-        group: "{{ item.value.group }}"
-        mode: "{{ item.value.mode }}"
-      with_dict: "{{ aws_config_files }}"
-      no_log: true
-
-    - name: Download private git Repos
-      git:
-        accept_hostkey: yes
-        repo: "{{ item.value.url }}"
-        dest: "/home/{{ current_user }}/repos/git/{{ item.key }}"
-        accept_hostkey: yes
-      with_dict: "{{ priv_git_repos }}" 
-      when: dl_priv_git_repos == true
-
-    - name: Download private svn Repos
-      subversion:
-        repo: "{{ item.value.url }}"
-        dest: "/home/{{ current_user }}/repos/svn/{{ item.key }}"
-        username: "{{ item.value.user }}"
-        password: "{{ item.value.pass }}"
-      with_dict: "{{ priv_svn_repos }}"
-      when: dl_priv_svn_repos == true
+    #- name: Download private svn Repos
+    #  subversion:
+    #    repo: "{{ item.value.url }}"
+    #    dest: "/home/{{ current_user }}/repos/svn/{{ item.key }}"
+    #    username: "{{ item.value.user }}"
+    #    password: "{{ item.value.pass }}"
+    #  with_dict: "{{ priv_svn_repos }}"
+    #  when: dl_priv_svn_repos == true

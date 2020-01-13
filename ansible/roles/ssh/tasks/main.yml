@@ -6,10 +6,18 @@
     path: "{{ current_user_home }}/.ssh"
     state: directory
     owner: "{{ current_user }}"
-    group: "{{ current_user }}"
     mode: 0700
 
 ## Funtoo keychain
 - name: Funtoo keychain tasks
   include: funtoo-keychain.yml
 
+## Copy the list of private keys:dict() in secrets.yml
+- name: Make sure our private keys are on the system
+  copy:
+    content: "{{ item.value.key_value }}"
+    dest: "{{ current_user_home }}/.ssh/{{ item.value.key_name }}"
+    owner: "{{ current_user }}"
+    mode: 0600
+  no_log: true
+  with_dict: "{{ keys }}"

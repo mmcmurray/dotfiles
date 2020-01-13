@@ -26,10 +26,15 @@ Check out `dfm` though if you are curious about it's role, as I think it is a sw
 
 ## Installation / Setup
 
-* Install the following pre-requisite packages
-	* `aptitude`
+- Install the following pre-requisite package
+	* `aptitude` (only for linux)
 	* `git`
-* Clone this repo to a `.dotfiles` subdirectory of $HOME
+	* `ansible` (use Homebrew for MacOSX)
+- Clone this repo to a `.dotfiles` subdirectory of $HOME
 	* `git clone https://github.com/mmcmurray/dotfiles.git ~/.dotfiles`
-* Navigate to the ansible subdirectory and kick off the playbook with the following:
+- You need to make sure if you are cloning private git repos, you need to ensure your ssh-key passphrase is stored in memory, else the playbook will fail.  Instructions for this for both linux and MacOSX are below:
+	+ MacOSX: In the same terminal you are executing the playbook, do the following: `ssh-add -K`.  It will prompt you for the passphrase and store it in memory for that tty session.
+	+ Linux: *TBD* 
+- Navigate to the ansible subdirectory and kick off the playbook with the following:
+	+ *Note:* For MaxOSX Only, install the requisite ansible-galaxy prerequisites: `ansible-galaxy install elliotweiser.osx-command-line-tools`
 	* `ansible-playbook bootstrap.yml --ask-vault-pass --ask-sudo-pass`

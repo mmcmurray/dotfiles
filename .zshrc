@@ -1,11 +1,15 @@
 # If you come from bash you might have to change your $PATH.
+<<<<<<< HEAD
 export PATH=$HOME/bin:$HOME/.local/bin:$PATH:/snap/bin
 export AWS_PROFILE=panoptio
 
 export GOPATH=$HOME/go
+=======
+export PATH=$HOME/bin:$HOME/.local/bin:$PATH:/snap/bin:$HOME/go/bin:$HOME/Library/Python/3.7/bin
+>>>>>>> 31538c0003b2740d8408f9b15ece1684772c570c
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/mmcmurray/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -104,8 +108,12 @@ export SVN_EDITOR=vim
 export EDITOR=vim
 
 # Setup SSH keychain
-eval $(keychain --eval --agents ssh id_rsa)
-#eval $(ssh-agent -s)
+
+if [[ "$OSTYPE" =~ '^linux' ]]; then
+	eval $(keychain --eval --agents ssh id_rsa)
+elif [[ "$OSTYPE" =~ '^darwin' ]]; then
+	ssh-add -K
+fi
 
 # Turns off ansible cows!
 export ANSIBLE_NOCOWS=1
@@ -119,12 +127,17 @@ export ANSIBLE_NOCOWS=1
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-[ -f ~/.alias ] && source ~/.alias
+if [[ "$OSTYPE" =~ '^linux' ]]; then
+	[ -f ~/.alias.linux ] && source ~/.alias.linux
+elif [[ "$OSTYPE" =~ '^darwin' ]]; then
+	[ -f ~/.alias.darwin ] && source ~/.alias.darwin
+fi
 
 # Setup NVM
-export NVM_DIR="/home/mmcmurray/.nvm"
+export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
+<<<<<<< HEAD
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
@@ -132,3 +145,9 @@ export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+=======
+# Android SDK Stuff
+export ANDROID_HOME=~/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home
+>>>>>>> 31538c0003b2740d8408f9b15ece1684772c570c
