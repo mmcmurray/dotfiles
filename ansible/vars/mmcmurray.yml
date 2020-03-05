@@ -11,6 +11,8 @@ usr_shell: zsh
 custom_vmmouse: false
 thinkpad_workstation: false
 
+terraform_version: "0.12.21"
+
 packages:
   - git
   - gcc

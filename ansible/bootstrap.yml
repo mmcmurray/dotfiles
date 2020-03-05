@@ -42,6 +42,12 @@
         - git
         - svn
 
+    - name: Ensure home bin folder
+      file:
+        state: directory
+        path: "{{ ansible_user_dir }}/bin"
+      tags: homedir
+
   roles:
     - { role: ssh, tags: [ 'ssh' ] }
     - { role: sublime, tags: [ 'sublime' ] }

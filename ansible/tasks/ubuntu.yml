@@ -129,36 +129,34 @@
       update: yes
     tags: ["tmux","tpm"]
 
-# Dropbox
-#  - name: Install Dropbox
-#    apt:
-#      name: "{{ item }}"
-#      state: latest
-#    with_items:
-#      - dropbox
-#      - nemo-dropbox
-#    become: yes
-#    tags: ["dropbox","packages"]
-
 # Terraform
-#  - name: Download Terraform
-#    get_url:
-#      url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
-#      dest: "{{ current_user_home }}/Downloads"
-#    register: terraform_archive
-#    tags: terraform
+  - name: Download Terraform
+    get_url:
+      url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
+      dest: "{{ current_user_home }}/Downloads"
+    register: terraform_archive
+    tags: terraform
 
-#  - name: Ensure /opt/terraform
-#    file:
-#      state: directory
-#      path: /opt/terraform
-#    become: yes
-#    register: terraform
-#    tags: terraform
+  - name: Ensure /usr/local/terraform
+    file:
+      state: directory
+      path: /usr/local/terraform
+    become: yes
+    register: terraform
+    tags: terraform
 
-#  - name: Unarchive Terraform
-#    unarchive:
-#      src: "{{ terraform_archive.dest }}"
-#      dest: "{{ terraform.path }}"
-#    become: yes
-#    tags: terraform
+  - name: Unarchive Terraform
+    unarchive:
+      src: "{{ terraform_archive.dest }}"
+      dest: "{{ terraform.path }}"
+    become: yes
+    tags: terraform
+
+  - name: Symlink Terraform to local bin
+    file:
+      src: "{{ terraform.path }}/terraform"
+      dest: "{{ current_user_home }}/bin/terraform"
+      owner: "{{ current_user }}"
+      #group: "{{ current_group }}"
+      state: link
+    tags: terraform

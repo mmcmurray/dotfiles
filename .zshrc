@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$HOME/.local/bin:$PATH:/snap/bin
+export PATH=$HOME/bin:$HOME/.local/bin:$PATH:/snap/bin:/usr/local/terraform
 export AWS_PROFILE=panoptio
 
 export GOPATH=$HOME/go

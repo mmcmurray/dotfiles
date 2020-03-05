@@ -11,4 +11,5 @@ alias slack-term-panoptio='slack-term --config ~/snap/slack-term/current/slack-t
 alias paws='aws --profile=personal'
 alias gitlog='git log --graph --oneline --all --decorate --topo-order'
 alias reactivate='deactivate && source venv/bin/activate'
-alias gotop='/snap/bin/gotop-cjbassi'
+alias gotop='/snap/bin/gotop-cjbassi -p'
+alias tf='terraform'
