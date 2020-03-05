@@ -45,6 +45,7 @@ packages:
   - gconf2
   - gconf-service 
   - libappindicator1
+  - httpie
 
 extra_packages:
   - awscli
