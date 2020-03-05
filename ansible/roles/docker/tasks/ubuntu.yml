@@ -7,12 +7,16 @@
   with_items:
     - apt-transport-https
     - ca-certificates
+    - curl
+    - gnupg-agent
+    - software-properties-common
 
 - name: Add apt-key for Docker
   apt_key:
     state: present
-    keyserver: hkp://ha.pool.sks-keyservers.net:80
-    id: 58118E89F3A912897C070ADBF76221572C52609D
+    #keyserver: hkp://ha.pool.sks-keyservers.net:80
+    url: https://download.docker.com/linux/ubuntu/gpg
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
   become: yes
 
 - name: Add docker.list to apt-sources
@@ -20,7 +24,8 @@
     state: present
     create: yes
     dest: /etc/apt/sources.list.d/docker.list
-    line: deb https://apt.dockerproject.org/repo ubuntu-xenial main
+    #line: deb https://apt.dockerproject.org/repo ubuntu-xenial main
+    line: deb https://download.docker.com/linux/ubuntu bionic stable
   register: docker_apt
   become: yes
 
@@ -30,21 +35,22 @@
   when: docker_apt.changed
   become: yes
 
-- name: Install linux-image-extra-* packages
+- name: Install docker-ce packages
   apt:
     state: latest
     name: "{{ item }}"
   with_items:
-    - linux-image-extra-{{ ansible_kernel }}
-    - linux-image-extra-virtual
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
   become: yes
   tags: ["docker","packages"]
 
-- name: Install docker-engine
-  apt:
-    state: latest
-    name: docker-engine
-  become: yes
+#- name: Install docker-engine
+#  apt:
+#    state: latest
+#    name: docker-engine
+#  become: yes
 
 - name: Enable and start docker service
   service:
