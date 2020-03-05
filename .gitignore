@@ -12,3 +12,4 @@
 *.retry
 .vault_pass.txt
 
+.fonts/.uuid
