@@ -58,3 +58,4 @@ extra_packages:
   - python-jinja2
   - python-httplib2
   - python-six
+  - python3-venv

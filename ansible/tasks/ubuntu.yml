@@ -11,6 +11,7 @@
     become: yes
     tags:
       - packages
+
   - name: Install utility packages
     apt: name={{ item }} state=latest
     with_items: "{{ extra_packages }}"
