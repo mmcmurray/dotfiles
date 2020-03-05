@@ -45,20 +45,16 @@
   roles:
     - { role: ssh, tags: [ 'ssh' ] }
     - { role: sublime, tags: [ 'sublime' ] }
-      #- { role: java, tags: [ 'java' ] }
-      #- { role: xcape, xcape_install_dir: "{{ ansible_user_dir }}/repos/git", tags: [ 'xcape' ] }
-      #- { role: spideroak, tags: [ 'spideroak' ] }
     - { role: dbeaver, tags: [ 'dbeaver' ] }
     - { role: hashicorp, tags: [ 'hashicorp' ] }
     - { role: virtualbox, tags: [ 'virtualbox' ], when: ansible_virtualization_role == "host" }
     - { role: docker, install_docker_compose: true, tags: [ 'docker' ] }
-      #- { role: maven, tags: [ 'maven' ], when: ansible_distribution != 'MacOSX' }
-      #- { role: gradle, gradle_daemon: true, tags: [ 'gradle' ], when: ansible_distribution != 'MacOSX' }
+    #- { role: maven, tags: [ 'maven' ], when: ansible_distribution != 'MacOSX' }
+    #- { role: gradle, gradle_daemon: true, tags: [ 'gradle' ], when: ansible_distribution != 'MacOSX' }
     - { role: node, tags: [ 'node' ], when: ansible_distribution != 'MacOSX' }
-      #- { role: ansible-role-homebrew, tags: [ 'homebrew' ], when: ansible_distribution == 'MacOSX' }
+    #- { role: ansible-role-homebrew, tags: [ 'homebrew' ], when: ansible_distribution == 'MacOSX' }
     - { role: oh-my-zsh, tags: [ 'oh-my-zsh' ] }
     - { role: gnome-themes, tags: [ 'gnome-themes' ], when: ansible_distribution != 'MacOSX' }
-      #- { role: spotify, tags: [ 'spotify' ], when: ansible_distribution != 'MacOSX' }
     - { role: repos-git, tags: [ 'repos-git' ] }
     - { role: aws, tags: [ 'aws' ] }
 
@@ -100,12 +96,3 @@
         state: present
       become: yes
       when: ( usr_shell == 'zsh' ) and ( ansible_distribution == 'MacOSX' )
-
-    #- name: Download private svn Repos
-    #  subversion:
-    #    repo: "{{ item.value.url }}"
-    #    dest: "/home/{{ current_user }}/repos/svn/{{ item.key }}"
-    #    username: "{{ item.value.user }}"
-    #    password: "{{ item.value.pass }}"
-    #  with_dict: "{{ priv_svn_repos }}"
-    #  when: dl_priv_svn_repos == true

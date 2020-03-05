@@ -44,7 +44,6 @@ packages:
   - gconf-service 
   - libappindicator1
 
-
 extra_packages:
   - awscli
   - xclip
@@ -59,3 +58,13 @@ extra_packages:
   - python-httplib2
   - python-six
   - python3-venv
+  - nautilus-dropbox
+  - postgresql-client
+
+snap_packages:
+  - gotop-cjbassi
+  - mailspring
+  - spotify
+
+snap_packages_classic:
+  - slack
