@@ -53,7 +53,7 @@ extra_packages:
   - network-manager-vpnc
   - gnome-extra-icons
   - python-boto
-  - python-winrm
+  #- python-winrm
   - python-paramiko
   - python-jinja2
   - python-httplib2
