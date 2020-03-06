@@ -4,3 +4,6 @@
 [submodule "ansible/roles/ansible-role-homebrew"]
 	path = ansible/roles/ansible-role-homebrew
 	url = https://github.com/geerlingguy/ansible-role-homebrew.git
+[submodule "ansible/roles/ansible-role-android-studio"]
+	path = ansible/roles/ansible-role-android-studio
+	url = git@github.com:wtanaka/ansible-role-android-studio.git
